@@ -172,13 +172,70 @@ compareVehiclesWithNew(dataWithVehicles, newIds)
 @[25-31]
 
 ---
+@title[Каррирование]
+
+## Каррирование
+
+Преобразование функции от многих аргументов в набор функций, 
+каждая из которых является функцией от одного аргумента.
+
+```javascript
+const combine = (x, y, z) => x + y + z
+const curriedCombine = x => y => z => x + y + z
+```
+
++++
+
+```javascript
+const getProductData = (state, productCategory, itemId) => (
+    state[productCategory].itemsById[itemId]
+)
+
+const getProductDataCarried = state => productCategory => itemId => (
+    getProductData(state, productCategory, itemId)
+)
+
+const state = {
+    branch1: {
+        category1: {
+            itemsById: {
+                1: {id: 1},
+                2: {id: 2},
+                3: {id: 3},
+                4: {id: 4},
+            }
+        },
+    },
+    branch2: {
+        category1: {
+            itemsById: {
+                1: {},
+            }
+        },
+    }
+}
+
+const getProductDataFromBranch1 = getProductDataCarried(state.branch1)
+const getProductDataForCategory1 = getProductDataFromBranch1('category1')
+
+const items = [1, 2, 3, 4]
+
+const data = items.map(id => getProductDataForCategory1(id))
+// {id:1}, {id:2}, {id:3}, {id:4}
+```
+
+@[1-4]
+@[5-8]
+@[9-]
+
+---
 @title[Как нам с этим жить]
 
 ## Как нам с этим жить
 
 Всю красоту ФП можно осознать, только используя ФП-языки, 
 но применение различных техник и инструментов может существенно 
-увеличить нашу продуктивность и упростить жизнь
+увеличить нашу продуктивность и упростить жизнь (и уже упрощает)
 
 ---
 @title[Конец]
