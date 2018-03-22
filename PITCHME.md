@@ -43,8 +43,10 @@
 ---
 @title[Чистые функции]
 
+## Чистые функции
+
 * Возвращают тот же результат при одинаковом входе
-* Не имеют сайд-эффектов
+* Не имеют сайд-эффектов:
   1. Ввод-вывод
   2. Чтение файла
   3. Логгирование
@@ -111,7 +113,9 @@ f(data) // { y: 3 }
 
 ```javascript
 const appendSizes = bundlesData =>
-    bundlesData.forEach(item => item.cardSize = CARD_SIZES.SIZE_3X1)
+    bundlesData.forEach(
+        item => item.cardSize = SIZE_3X1
+    )
     
 const data = getDataFromAnywhere()
 appendSizes(data)
@@ -128,7 +132,9 @@ appendSizes(data)
 const appendVehiclesNames = (data, vehiclesData) => {
     const ids = [...data.vehicles]
     data.vehicles = []
-    vehiclesData.forEach(item => ids.includes(item.id) && data.vehicles.push(item.name))
+    vehiclesData.forEach(
+        item => ids.includes(item.id) && data.vehicles.push(item.name)
+    )
 }
 
 const compareVehiclesWithNew = (data, newIds) => {
@@ -140,9 +146,13 @@ const compareVehiclesWithNew = (data, newIds) => {
 }
 
 const dataWithVehicles = {
-    vehicles: [1,2,3]
+    vehicles: [1,2,3],
 }
-const vehiclesData = [{id:1, name: '1 vehicle'}, {id:2, name: '2 vehicle'}, {id:3, name: '3 vehicle'}]
+const vehiclesData = [
+    {id:1, name: '1 vehicle'}, 
+    {id:2, name: '2 vehicle'}, 
+    {id:3, name: '3 vehicle'},
+]
 const newIds = [2,3,4]
 
 appendVehiclesNames(dataWithVehicles, vehiclesData)
